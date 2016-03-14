@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OXI</title>
+		<link href="http://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet" type="text/css">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="alertify.min.js"></script>
+	
+	<script>
+		
+		//variable declaration
+		var correct = false;
+		var go = true;
+		var Main;
+		var Fig1;
+		var Fig2;
+		var Fig3;
+		var Score = 0;
+		var HighScore = 0;
+		var seconds;
+		var temp;
+		
+		function onBoot() {
+			var MainMath = Math.random();//done
+			var Fig1Math = Math.random();//done
+			var Fig2Math = Math.random();
+			//Main Change
+				
+			if (MainMath <= 0.33) {
+				var Main = "O";
+			} else if (MainMath <= 0.66) {
+				var Main = "X"
+			} else {
+				var Main = "I";
+			} 
+			
+			//Figure Changes
+			
+			if (Fig1Math.toFixed(2) <= 0.33) {
+				var Fig1 = "O";
+				
+				if (Fig2Math.toFixed(2) <= 0.5) {
+					var Fig2 = "X";
+					var Fig3 = "I";
+				} else {
+					var Fig2 = "I";
+					var Fig3 = "X";
+				}
+				
+			} else if (Fig1Math.toFixed(2) <= 0.66) {
+				var Fig1 = "X"
+				
+				if (Fig2Math.toFixed(2) <= 0.5) {
+					var Fig2 = "O";
+					var Fig3 = "I";
+				} else {
+					var Fig2 = "I";
+					var Fig3 = "O";
+				}
+			} else {
+				var Fig1 = "I";
+					
+				if (Fig2Math.toFixed(2) <= 0.5) {
+					var Fig2 = "X";
+					var Fig3 = "O";
+				} else {
+					var Fig2 = "O";
+					var Fig3 = "X";
+				}
+			}
+			
+			console.log("--------------------------------------");
+			console.log("MainMath = " + MainMath.toFixed(2) + " | Main = " + Main);
+			console.log("Fig1Math = " + Fig1Math.toFixed(2) + " | Fig1 = " + Fig1);
+			console.log("Fig2Math = " + Fig2Math.toFixed(2) + " | Fig2 = " + Fig2);
+			
+			//Place Variables
+			document.getElementById('title').innerHTML=Main;
+			document.getElementById('el1').innerHTML=Fig1;
+			document.getElementById('el2').innerHTML=Fig2;
+			document.getElementById('el3').innerHTML=Fig3;
+			
+			setMain(Main);
+			setFig1(Fig1);
+			setFig2(Fig2);
+			setFig3(Fig3);
+		}
+		
+		//Getters and Setters
+		
+		function setMain(Main) {
+			this.Main = Main;
+		}
+		function setFig1(Fig1) {
+			this.Fig1 = Fig1;
+		}
+		function setFig2(Fig2) {
+			this.Fig2 = Fig2;
+		}
+		function setFig3(Fig3) {
+			this.Fig3 = Fig3;
+		}
+		function getMain(Main) {
+			this.Main = Main;
+			return Main;
+		}
+		function getFig1(Main) {
+			this.Fig1 = Fig1;
+			return Fig1;
+		}
+		function getFig2(Fig2) {
+			this.Fig2 = Fig2;
+			return Fig2;
+		}
+		function getFig3(Fig3) {
+			this.Fig3 = Fig3;
+			return Fig3;
+		}
+		function setHighScore(HighScore) {
+			this.HighScore = HighScore;
+		}
+		function setScore(Score) {
+			this.Score = Score;
+		}
+		function getScore(Score) {
+			return Score;
+		}
+		
+		//ON CLICK FUNCTIONS && Set Highscore's
+		
+		var audio = new Audio('spop.mp3');
+		
+		function Click1() {
+			audio.play();
+			if (Fig1 == Main) {
+				Right();
+			} else {
+				Wrong();
+			}
+			
+			if (HighScore < Score) {
+				setHighScore(Score);
+			}
+			document.getElementById('highscore').innerHTML="Highscore: "+ HighScore;
+			document.getElementById('score').innerHTML="Score: "+ Score;
+			onBoot();
+			setScore(Score);
+		}
+		function Click2() {
+			audio.play();
+			if (Fig2 == Main) {
+				Right();
+			} else {
+				Wrong();	
+			}
+			if (HighScore < Score) {
+				setHighScore(Score);
+			}
+			document.getElementById('highscore').innerHTML="Highscore: "+ HighScore;
+			document.getElementById('score').innerHTML="Score: "+ Score;
+			onBoot();
+			setScore(Score);
+		}
+		function Click3() {
+			audio.play();
+			if (Fig3 == Main) {
+				Right();
+			} else {
+				Wrong();
+			} 
+			if (HighScore < Score) {
+				setHighScore(Score);
+			}
+			document.getElementById('highscore').innerHTML="Highscore: "+ HighScore;
+			document.getElementById('score').innerHTML="Score: "+ Score;
+			onBoot();
+			setScore(Score);
+		}
+		
+		//function makeCookieScore(Score) {
+		//	var today = new Date() + 5;
+		//	document.cookie = 'score='+ Score +'; expires=' + today + '; path=/';
+		//}
+		
+		//var Highscore = localStorage.getItem('SavedHighScore');
+		
+		//function saveHighscore(HighScore) {
+		//	localStorage.highscore = HighScore;
+		//}
+		
+		function countdown() {
+			seconds = document.getElementById('countdown').innerHTML;
+			seconds = parseInt(seconds, 10);
+	 
+			if (seconds == 1) {
+				temp = document.getElementById('countdown'); //Fix this later YEE 
+				temp.innerHTML = "30";
+				countdown();
+				getScore(Score);
+				//location.href =
+				var speed = 30/Score;
+				alert("Score: " + Score  + " | "+ "Highscore: " + HighScore + " | " +  "Speed: " + speed.toFixed(2) + " Seconds per Click" + ". Hit OK to restart!");
+				resetScore();
+				//makeCookieScore(Score);
+				return;
+			}
+	 
+			seconds--;
+			temp = document.getElementById('countdown');
+			temp.innerHTML = seconds;
+			timeoutMyOswego = setTimeout(countdown, 1000);
+		}	
+		
+		function ResetTime() {
+			temp.innerHTML = document.getElementById("countdown");
+			temp.innerHTML = "30";
+			resetScore();
+			onBoot();
+		}
+		function resetScore() {
+			Score = 0;
+			document.getElementById('score').innerHTML = "Score: " + Score;
+		}
+		
+		
+		//The Listeners
+		window.addEventListener("keydown", checkKeyF, false);
+		window.addEventListener("keydown", checkKeyG, false);
+		window.addEventListener("keydown", checkKeyH, false);
+		window.addEventListener("keydown", checkKeyR, false);
+		//window.addEventListener("keydown", checkKeyP, false);
+ 
+		function checkKeyF(e) {
+			if (e.keyCode == "70") {
+				Click1();
+			}
+		}
+		function checkKeyG(e) {
+			if (e.keyCode == "71") {
+				Click2();
+			}
+		}
+		function checkKeyH(e) {
+			if (e.keyCode == "72") {
+				Click3();
+			}
+		}
+		function checkKeyR(e) {
+			if (e.keyCode == "82") {
+				ResetTime();
+			}
+		}
+		//function checkKeyP(e) {
+		//	if (e.keyCode == "80") {
+		//		if (go != true) {
+		//			var go = true;
+		//		} else {
+		//			var go = false;
+		//		}
+		//	}
+		//}
+		
+		function Right() {
+			Score++;
+		}
+		
+		function Wrong() {
+			Score = 0;
+			
+			//Style
+			document.getElementById('title').style.color = "red";
+			setTimeout( function(){document.getElementById('title').style.color = "#333";}, 300);
+		}
+	
+		function over1() {
+			//highliting the hovered text
+			document.getElementById('el1').style.color='#000000';
+			
+			//shadowing the others
+			document.getElementById('el2').style.opacity='0.2';
+			document.getElementById('el2').style.textShadow="1px 1px 8px #646464";
+			
+			document.getElementById('el3').style.opacity='0.2';
+			document.getElementById('el3').style.textShadow="1px 1px 8px #646464";
+		}
+		function over2() {
+			document.getElementById('el2').style.color='#000000';
+			
+			//shadowing the others
+			document.getElementById('el1').style.opacity='0.2';
+			document.getElementById('el1').style.textShadow="1px 1px 8px #646464";
+			
+			document.getElementById('el3').style.opacity='0.2';
+			document.getElementById('el3').style.textShadow="1px 1px 8px #646464";
+		}
+		function over3() {
+			document.getElementById('el3').style.color='#000000';
+			
+			//shadowing the others
+			document.getElementById('el1').style.opacity='0.2';
+			document.getElementById('el1').style.textShadow="1px 1px 8px #646464";
+			
+			document.getElementById('el2').style.opacity='0.2';
+			document.getElementById('el2').style.textShadow="1px 1px 8px #646464";
+		}
+		
+		function out1() {
+			document.getElementById('el1').style.color = "#939393";
+			
+			//un-shadowing the others
+			document.getElementById('el2').style.opacity='1';
+			document.getElementById('el2').style.textShadow="none";
+			
+			document.getElementById('el3').style.opacity='1';
+			document.getElementById('el3').style.textShadow="none";
+		}
+		function out2() {
+			document.getElementById('el2').style.color = "#939393";
+			
+			//un-shadowing the others
+			document.getElementById('el1').style.opacity='1';
+			document.getElementById('el1').style.textShadow="none";
+			
+			document.getElementById('el3').style.opacity='1';
+			document.getElementById('el3').style.textShadow="none";
+		}
+		function out3() {
+			document.getElementById('el3').style.color = "#939393";
+			
+			//un-shadowing the others
+			document.getElementById('el1').style.opacity='1';
+			document.getElementById('el1').style.textShadow="none";
+			
+			document.getElementById('el2').style.opacity='1';
+			document.getElementById('el2').style.textShadow="none";
+		}
+		</script>
+
+	<body onload="onBoot(); countdown();" id="body">
+		<p id="highscore">Highscore: 0</p><br>
+		<p id="score">Score: 0</p>
+		
+		<h2 id="countdown">30</h2>
+
+		<h1 id="title">O</h1>
+		
+				
+		<div id="zone">
+			<div class="bord" onmouseover="over1()" onmouseout="out1()" onclick="Click1()">
+				<p id="el1">O</p>
+			</div>
+			<div class="bord" onmouseover="over2()" onmouseout="out2()" onclick="Click2()">
+				<p id="el2">X</p>
+			</div>
+			<div class="bord" onmouseover="over3()" onmouseout="out3()" onclick="Click3()">
+				<p id="el3">I</p>
+			</div>
+		</div>
+		<a href="index.html"><button id="return-home">Return Home</button></a>                      
+	</body>
+</html>
