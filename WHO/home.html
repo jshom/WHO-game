@@ -7,6 +7,9 @@
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="alertify.min.js"></script>
+	<link href="alertify.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="default.min.css">
+	<script src="firebase.js"></script><!--Firebase-->
 	
 	<script>
 		
@@ -201,8 +204,16 @@
 				getScore(Score);
 				//location.href =
 				var speed = 30/Score;
-				alert("Score: " + Score  + " | "+ "Highscore: " + HighScore + " | " +  "Speed: " + speed.toFixed(2) + " Seconds per Click" + ". Hit OK to restart!");
+				alertify.alert("Score: " + Score  + " | "+ "Highscore: " + HighScore + " | " +  "Speed: " + speed.toFixed(2) + " Seconds per Click" + ". Hit OK to restart!");
 				resetScore();
+				
+				//put into firebase
+				
+				
+				//get user
+				var fire = new Firebase('https://who-game.firebaseio.com');
+				
+				fire.update({"Jacob" : HighScore});
 				//makeCookieScore(Score);
 				return;
 			}
