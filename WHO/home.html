@@ -14,6 +14,7 @@
 	<script>
 		
 		//variable declaration
+		var fire = new Firebase('https://who-game.firebaseio.com');
 		var correct = false;
 		var go = true;
 		var Main;
@@ -208,10 +209,16 @@
 				resetScore();
 				
 				//put into firebase
+				//check if the highscore is higher than on db?
 				
+				fire.on('value', function(snapshot) {
+					var firehighscore = snapshot.val();
+					if (firehighscore < highscore) {
+						fire.child("users").update(user : highscore);
+					}
+				});
 				
 				//get user
-				var fire = new Firebase('https://who-game.firebaseio.com');
 				fire.set(users : {});
 				fire.update({"Jacob" : HighScore});
 				//makeCookieScore(Score);
