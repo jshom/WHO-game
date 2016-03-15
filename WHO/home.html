@@ -212,7 +212,7 @@
 				
 				//get user
 				var fire = new Firebase('https://who-game.firebaseio.com');
-				
+				fire.set(users : {});
 				fire.update({"Jacob" : HighScore});
 				//makeCookieScore(Score);
 				return;
