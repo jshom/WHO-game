@@ -28,6 +28,11 @@
 		var seconds;
 		var temp;
 
+		//facebook login
+
+		//get user details
+
+
 		function onBoot() {
 			var MainMath = Math.random();//done
 			var Fig1Math = Math.random();//done
@@ -211,6 +216,8 @@
 				//swal("Score: " + Score  + " | "+ "Highscore: " + HighScore + " | " +  "Speed: " + speed.toFixed(2) + " Seconds per Click" + ". Hit OK to restart!");
 				resetScore();
 
+
+
 				//put into firebase
 				//check if the highscore is higher than on db?
 				fire.set({users : {}});
@@ -221,7 +228,7 @@
 						fire.child("users").update({user : highscore});
 						sweetAlert("Congrats! You beat your highscore");
 					} else {
-						sweetAlert("Try Again, you didn't beat your highscore, your highscore is: " + "<strong>"HighScore"</strong>");
+						sweetAlert("Try Again, you didn't beat your highscore, your highscore is: " + "<strong>" + HighScore + "</strong>");
 					}
 					}, function (errorObject) {
 						console.log("Faild: " + errorObject.code);

@@ -6,12 +6,12 @@
 		<meta name="keywords" content="OXI, oxi game, game, brain games, Jacob Shomstein"
 		<link rel="shortcut icon" href="OXI_LOGO.ico">
 		<link href="http://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet" type="text/css">
-		<script src="firebase.js"></script><!--Firebase-->
+		<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 		<style>
 			* {
 				text-align: center;
 				font-family: "Helvetica", Arial, sans-serif;
-				font-family: "Josefin Slab"; 
+				font-family: "Josefin Slab";
 			}
 			html {
 				/*background: #cdcdcd;*/
@@ -32,7 +32,7 @@
 				font-weight: 400;
 				margin: 0px 60px;
 			}
-			
+
 			#play_button {
 				background: black;
 				color: white;
@@ -45,7 +45,7 @@
 				font-size: 40px;
 				border-radius: 10px;
 			}
-			
+
 			a:link {
 				text-decoration: none;
 				text-transform: none;
@@ -53,7 +53,7 @@
 				font-family: "Josefin Slab", Helvetica, sans-serif;
 				font-size: 30px;
 			}
-			
+
 			a:hover {
 				text-decoration: none;
 				text-transform: none;
@@ -61,7 +61,7 @@
 				font-family: "Josefin Slab", Helvetica, sans-serif;
 				font-size: 30px;
 			}
-			
+
 			#footer p {
 				color: black;
 				font-size: 20px;
@@ -69,11 +69,11 @@
 				bottom: 5px;
 				right: -40px;
 			}
-			
+
 			p b {
 				color: #666666;
 			}
-			
+
 			#instruct:link {
 				text-decoration: none;
 				color: #757fa9;
@@ -86,15 +86,33 @@
 				font-size: 40px;
 				font-style: none;
 			}
-			
+
 		</style>
 	</head>
-	<body>	
+	<body>
+		<script>
+
+			var fire = new Firebase('http://who-game.firebaseio.com');
+
+			fire.authWithOAuthPopup("facebook", function(error, authData) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log("Great, Facebook connected.")
+				}
+			}, {
+				scope: "facebook.email, displayName"
+				}
+			);
+
+			console.log(authData.facebook.email);
+
+		</script>
 		<h1>OXI</h1>
 		<p>To play the game, match the bottom figures with the main figure by clicking on them or using "f", "g" and "h". Try to get as many points as you can before time is up! Careful, <b>everything</b> switches! For more instruction click <a id="instruct" href="instructions.html">here</a>.</p>
-		
+
 		<a href="home.html"><button id="play_button">PLAY</button></a>
-	
+
 		<footer id="footer">
 			<p>&copy;PikWik Tech 2014-2015</p>
 		</footer>
