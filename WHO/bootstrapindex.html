@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   </head>
   <body>
+    <style>
+      body {
+        margin-top: 80px;
+      }
+      h1 {
+        margin: 0 auto;
+
+      }
+
+    </style>
     <!-- jQuery first, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
@@ -25,10 +35,10 @@
         }
       }, {
         remember: "sessionOnly",
-        scope: "email,user_likes"
+        scope: "email, displayName"
       });
 
-      console.log(authData.email);
+      console.log(authData.displayName);
 
       // ---------- Google --------
 
@@ -49,16 +59,14 @@
 
 
     <!-- Top -->
+
     <div class="container">
+      <h1 class="text-center center-block">WHO</h1>
       <div class="row">
-        <div class="col-sm-4 center-block">
-          <h2></h2>
-        </div>
-        <div class="col-sm-4 center-block">
-          <h2></h2>
-        </div>
-        <div class="col-sm-4 center-block">
-          <h2></h2>
+        <div class="jumbotron">
+          <h1>Welcome to WHO</h1>
+          <p>Click the matching letter to the main letter on the top</p>
+          <p>30 seconds, be ready</p>
         </div>
       </div>
     </div>
